@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login Page</title>
+  </head>
+  <body>
+    <div id="Page1">
+      <h1>Login</h1>
+      <input id="username" type="text" placeholder="Enter your username" />
+      <input id="password" type="password" placeholder="Enter your password" />
+      <button id="login">Login</button>
+      <p id="feedback"></p>
+      <div id="loading"></div>
+    </div>
+    <script>
+      function isTrue(A, B, C, D) {
+        for (let i = 0; i < A.length; i++) {
+          if (C === A[i] && D === B[i]) {
+            return true;
+          }
+        }
+        return false;
+      }
+
+      const User = ["User1", "User2", "User3", "User4"];
+      const Userpwd = ["qwerty", "Ish1", "nonewar", "run1"];
+
+      document.getElementById("login").addEventListener("click", function () {
+        let username = document.getElementById("username").value;
+        let password = document.getElementById("password").value;
+
+        // Client-side validation
+        if (username === "" || password === "") {
+          document.getElementById("feedback").textContent =
+            "Please fill in both username and password.";
+          document.getElementById("feedback").style.color = "red";
+          return; // Stop further execution if fields are empty
+        }
+
+        document.getElementById("loading").style.display = "block";
+        document.getElementById("feedback").textContent =
+          "Checking credentials...";
+        document.getElementById("feedback").style.color = "orange";
+
+        setTimeout(function () {
+          let isPass = isTrue(User, Userpwd, username, password);
+          document.getElementById("loading").style.display = "none";
+
+          if (isPass) {
+            document.getElementById("feedback").textContent =
+              "Logging in Successfully";
+            document.getElementById("feedback").style.color = "green";
+          } else {
+            document.getElementById("feedback").textContent =
+              "Invalid credentials";
+            document.getElementById("feedback").style.color = "red";
+          }
+        }, 2000);
+      });
+    </script>
+  </body>
+</html>
